@@ -28,14 +28,8 @@ app.get("/", (req, res) => {
 
 app.get("/api/users", async (req, res) => {
   try {
-    // const result = await pool.query("SELECT * FROM users");
-    // res.json(result.rows);
-
-    const mockUsers = [
-      { id: 1, name: "Alice", email: "alice@gmail.com" },
-      { id: 2, name: "Bob", email: "bob@gmail.com" },
-    ];
-    res.json(mockUsers);
+    const result = await pool.query("SELECT * FROM users");
+    res.json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Database query failed" });
