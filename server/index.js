@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -15,11 +15,12 @@ app.use(
 app.use(express.json());
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl:
-    process.env.NODE_NEW === "prodution"
-      ? { rejectUnauthorized: false }
-      : false,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
 });
 
 app.get("/", (req, res) => {
@@ -37,5 +38,5 @@ app.get("/api/users", async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on ${port}`)
-})
+  console.log(`Server is running on ${port}`);
+});
