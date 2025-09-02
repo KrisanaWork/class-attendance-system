@@ -37,6 +37,18 @@ export async function findUserByEmail(email) {
   return response.rows[0];
 }
 
+export async function getUserByEmail(req, res, next) {
+  try {
+    const { email } = req.params;
+    const user = await findUserByEmail(email);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
 export async function createUser(req, res, next) {}
 
 export async function deleteUser(req, res, next) {}
