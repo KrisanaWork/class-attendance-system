@@ -1,42 +1,28 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const { Pool } = require("pg");
+import express from "express";
+import cors from"cors";
+import dotenv from "dotenv";
+import userRouter from "./routers/user.js";
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "https://krisanawork.github.io"],
-  })
-);
+const corsOptions = {
+  origin: ["http://localhost:5173", "https:krisanawork.github.io"]
+}
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
-});
+app.use("/api/user", userRouter);
 
-app.get("/", (req, res) => {
-  res.send("Server is Running");
-});
-
-app.get("/api/users", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM users");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database query failed" });
-  }
+app.use((err, req, res, next) => {
+  const statusCode =err.statusCode || 500;
+  const message = err.message || "Internal server error";
+  return res.status(statusCode).json({error: message});
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on ${port}`);
+  console.log(`Listening on port ${port}`);
 });
