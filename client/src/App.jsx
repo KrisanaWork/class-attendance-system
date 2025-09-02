@@ -1,7 +1,23 @@
-import { useState } from "react";
-import "./App.css"; // CSS ของ component
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("https://class-attendance-system-amd9.onrender.com/api/user", {
+        email,
+        password
+      });
+      localStorage.setItem("token", res.data.token);
+      alert("Login success");
+    } catch (err){
+      alert("Login failed");
+    }
+  };
 
   return (
     <div className="m-0 p-0 box-border font-k2d text-black-olive">
@@ -19,11 +35,13 @@ function App() {
           </div>
           <div className="w-full overflow-hidden">
             <div className="flex w-full">
-              <form action="#" className="w-full">
+              <form onSubmit={handleLogin} className="w-full">
                 <div className="h-[50px] w-full mt-[20px]">
                   <input
                     type="text"
                     placeholder="name@rmuti.ac.th"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="h-full w-full outline-none pl-[15px] rounded-[15px] border border-solid border-silver-sand border-b-2 text-[17px] transition-all duration-300 ease-in-out focus:border-rufous placeholder:text-silver-sand placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:text-rufous"
                   />
                 </div>
@@ -31,6 +49,8 @@ function App() {
                   <input
                     type="password"
                     placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="h-full w-full outline-none pl-[15px] rounded-[15px] border border-solid border-silver-sand border-b-2 text-[17px] transition-all duration-300 ease-in-out focus:border-rufous placeholder:text-silver-sand placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:text-rufous"
                   />
                 </div>

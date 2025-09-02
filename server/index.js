@@ -2,6 +2,7 @@ import express from "express";
 import cors from"cors";
 import dotenv from "dotenv";
 import userRouter from "./routers/user.js";
+import authRouter from "./routers/auth.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/user", userRouter);
+app.use("/api/user", authRouter);
 
 app.use((err, req, res, next) => {
   const statusCode =err.statusCode || 500;

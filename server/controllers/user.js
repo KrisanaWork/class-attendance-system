@@ -1,5 +1,9 @@
 import { query } from "../utils/connectToDB.js";
-import { getAllUserQuery, getUserQuery } from "../utils/sqlQuery.js";
+import {
+  getAllUserQuery,
+  getUserByIdQuery,
+  getUserByEmailQuery,
+} from "../utils/sqlQuery.js";
 
 export async function getAllUser(req, res, next) {
   try {
@@ -14,11 +18,25 @@ export async function getAllUser(req, res, next) {
   }
 }
 
-export async function getUser(req, res, next) {
+export async function getUserById(req, res, next) {
   try {
     const { id } = req.params;
 
-    const response = await query(getUserQuery, [id]);
+    const response = await query(getUserByIdQuery, [id]);
+    if (response.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(response.rows[0]);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export async function getUserByEmail(req, res, next) {
+  try {
+    const { email } = req.params;
+
+    const response = await query(getUserByEmailQuery, [email]);
     if (response.rows.length === 0) {
       return res.status(404).json({ message: "User not found" });
     }
