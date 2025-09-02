@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     if (!user) return res.status(401).json({ message: "User not found" });
 
     const valid = await bcrypt.compare(password, user.password);
-    if (!password) return res.status(401).json({ message: "Invalid Password" });
+    if (!valid) return res.status(401).json({ message: "Invalid Password" });
 
     const token = jwt.sign({ id: user.id, email: user.email }, SECRET, {
       expiresIn: "1h",

@@ -12,9 +12,9 @@ const router = express.Router();
 
 router.get("/", getAllUser);
 
-router.get("/:id", getUserById)
+router.get("/id/:id", getUserById);
 
-router.get("/:email", getUserByEmail);
+router.get("/email/:email", getUserByEmail);
 
 router.post("/", createUser);
 
