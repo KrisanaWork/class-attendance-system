@@ -6,7 +6,7 @@ import { findUserByEmail } from "../controllers/user.js";
 const router = express.Router();
 const SECRET = "MY_SECRET_KEY";
 
-router.post("/", async (req, res) => {
+router.post("/email/:email", async (req, res) => {
   const { email, password } = req.body;
 
   try {
