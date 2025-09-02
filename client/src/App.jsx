@@ -8,13 +8,16 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://class-attendance-system-amd9.onrender.com/api/auth", {
-        email,
-        password
-      });
+      const res = await axios.post(
+        "https://class-attendance-system-amd9.onrender.com/api/auth",
+        {
+          email,
+          password,
+        }
+      );
       localStorage.setItem("token", res.data.token);
       alert("Login success");
-    } catch (err){
+    } catch (err) {
       alert("Login failed");
     }
   };

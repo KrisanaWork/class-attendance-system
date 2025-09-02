@@ -32,18 +32,9 @@ export async function getUserById(req, res, next) {
   }
 }
 
-export async function getUserByEmail(req, res, next) {
-  try {
-    const { email } = req.params;
-
-    const response = await query(getUserByEmailQuery, [email]);
-    if (response.rows.length === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json(response.rows[0]);
-  } catch (error) {
-    console.log(error.message);
-  }
+export async function findUserByEmail(email) {
+  const response = await query(getUserByEmailQuery, [email]);
+  return response.rows[0];
 }
 
 export async function createUser(req, res, next) {}

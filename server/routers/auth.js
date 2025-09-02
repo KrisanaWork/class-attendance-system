@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "../controllers/user.js";
+import { findUserByEmail } from "../controllers/user.js";
 
 const router = express.Router();
 const SECRET = "MY_SECRET_KEY";
@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await getUserByEmail(email);
+    const user = await findUserByEmail(email);
     if (!user) return res.status(401).json({ message: "User not found" });
 
     const valid = await bcrypt.compare(password, user.password);
