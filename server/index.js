@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/auth", authRouter);
-app.use("/course", courseRouter);
+app.use("/courses", courseRouter);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
