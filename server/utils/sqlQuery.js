@@ -1,1 +1,1 @@
-export const getUserByEmailQuery = `SELECT * FROM users WHERE email = $1`;
+export const getEmailQuery = `SELECT * FROM email WHERE email = $1`;

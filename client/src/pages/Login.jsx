@@ -50,7 +50,7 @@ const Login = () => {
               <form onSubmit={handleSubmit} className="w-full">
                 <div className="h-[50px] w-full mt-[20px]">
                   <input
-                    type="text"
+                    type="email"
                     placeholder="name@rmuti.ac.th"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
