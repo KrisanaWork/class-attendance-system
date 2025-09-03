@@ -10,7 +10,7 @@ const Course = () => {
     const fetchCourses = async () => {
       try {
         const res = await axios.get(
-          `https://class-attendance-system-amd9.onrender.com/courses/${studentId}`,
+          `https://class-attendance-system-amd9.onrender.com/courses`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
