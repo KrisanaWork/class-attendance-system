@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <div className="m-0 p-0 box-border font-k2d text-black-olive">
       <div className="grid h-screen w-screen place-items-center bg-lotion selection:bg-rufous selection:text-lotion">
-        <div className="overflow-hidden w-full max-w-[390px] bg-lotion p-[30px] rounded-[15px] shadow-[0_15px_20px_rgba(0,0,0,0.1)]">
+        <div className="overflow-hidden w-full max-w-[390px] bg-lotion p-[30px] rounded-[15px] border border-gray-200 shadow-[0_15px_20px_rgba(0,0,0,0.1)]">
           <div className="flex w-full">
             <div className="w-full text-[35px] font-semibold text-center">
               CAS
