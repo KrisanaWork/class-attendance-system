@@ -30,8 +30,6 @@ const Login = () => {
       } else {
         navigate("/login", {replace: true});
       }
-
-      navigate("/", {replace: true});
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.error || "Something went wrong");
