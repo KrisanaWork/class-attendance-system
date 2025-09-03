@@ -13,7 +13,8 @@ router.get("/", async (req, res) => {
     if (!token) return res.status(401).json({ error: "No token provided" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const studentId = decoded.id;
+
+    const studentId = decoded.student_id; 
 
     const result = await query(getCourseByStudentIdQuery, [studentId]);
 
