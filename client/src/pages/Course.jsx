@@ -4,7 +4,7 @@ import axios from "axios";
 const Course = () => {
   const [courses, setCourses] = useState([]);
   const [studentName, setStudentName] = useState("");
-  const token = localStorage.setItem("token");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchCourses = async () => {
