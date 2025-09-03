@@ -4,10 +4,10 @@ import Login from "./pages/Login.jsx"
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/class-attendance-system">
       <Routes>
-        <Route path="class-attendance-system/" element={<Home />}></Route>
-        <Route path="class-attendance-system/login" element={<Login />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
   );
