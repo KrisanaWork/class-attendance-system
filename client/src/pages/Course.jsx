@@ -42,11 +42,11 @@ const Course = () => {
             className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100"
           >
             <h5 className="mb-2 text-2xl font-bold">{course.course_name}</h5>
-            <p className="font-medium">Instructor: {course.instructor_name}</p>
-            <p>Section: {course.section}</p>
-            <p>Day: {course.day_of_week}</p>
-            <p>Time: {course.class_time}</p>
-            <p>Room: {course.room}</p>
+            <p className="font-medium">อาจารย์: {course.instructor_name}</p>
+            <p>กลุ่ม: {course.section}</p>
+            <p>วัน: {course.day_of_week}</p>
+            <p>เวลา: {course.class_time}</p>
+            <p>ห้อง: {course.room}</p>
           </div>
         ))}
       </div>
