@@ -21,6 +21,15 @@ const Login = () => {
       });
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+
+      if(res.data.role === "student") {
+        navigate("/course", {replace: true});
+      } else if(res.data.role === "instructor"){
+        navigate("/", {replace: true});
+      } else {
+        navigate("/login", {replace: true});
+      }
 
       navigate("/", {replace: true});
     } catch (err) {
