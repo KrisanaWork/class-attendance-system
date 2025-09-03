@@ -1,44 +1,30 @@
-import pg from "pg";
-import env from "dotenv";
+import { Pool } from "pg";
+import dotenv from "dotenv";
 
-env.config();
+dotenv.config();
 
-const requiredEnvVars = [
-  "DB_USER",
-  "DB_HOST",
-  "DB_NAME",
-  "DB_PASSWORD",
-  "DB_PORT",
-];
-
-requiredEnvVars.forEach((varName) => {
-  if (!process.env[varName]) {
-    console.log(`missing required env variable : ${varName}`);
-    process.exit(1);
-  }
-});
-
-const db = new pg.Pool({
-  user: process.env.DB_USER,
+const pool = new Pool({
   host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   ssl: {
     rejectUnauthorized: false,
+  },
+});
+
+export const query = async (text, params) => {
+  try {
+    const result = await pool.query(text, params);
+    return result;
+  } catch (error) {
+    console.error(`Database query error: ${error.message}`);
+    throw error;
   }
-});
+};
 
-db.connect()
-  .then(() => console.log("connected with the database"))
-  .catch((err) => {
-    console.log("Couldn't connect with the database ", err);
-    process.exit(1);
-  });
-
-db.on("error", (err) => {
-  console.log("Database error: ", err);
-  process.exit(1);
-});
-
-export const query = (text, params) => db.query(text, params);
+export const closePool = async () => {
+  await pool.end();
+  console.log("Database connection closed");
+};
